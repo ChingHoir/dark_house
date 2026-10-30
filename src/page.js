@@ -5,9 +5,9 @@ import {
 
 const nav = [
   ['about', 'About'],
+  ['experience', 'Projects'],
   ['team', 'Team'],
   ['capabilities', 'Capabilities'],
-  ['experience', 'Experience'],
   ['principles', 'Principles'],
 ];
 
@@ -30,14 +30,14 @@ const Header = () => `
 const Hero = () => `
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="wrap hero-inner">
-    <p class="hero-kicker">A student engineering team at the Institute of Technology of Cambodia</p>
+    <p class="hero-kicker">${esc(d.hero.kicker)}</p>
     <h1 id="hero-title" class="hero-title">
       ${d.hero.title.map((line) => `<span class="hero-line">${esc(line)}</span>`).join('')}
     </h1>
     <p class="hero-intro">${esc(d.hero.intro)}</p>
     <div class="hero-actions">
-      ${Button({ href: d.site.telegram.url, label: 'Message us on Telegram' })}
-      ${Button({ href: '#experience', label: 'See our work', variant: 'ghost', external: false })}
+      ${Button({ href: '#experience', label: 'Explore projects', external: false })}
+      ${Button({ href: '#team', label: 'Meet the team', variant: 'ghost', external: false })}
     </div>
   </div>
   <div class="track" aria-hidden="true">
@@ -86,7 +86,8 @@ const Capabilities = () =>
 const Experience = () =>
   Section({
     id: 'experience',
-    title: 'Experience',
+    title: 'Projects',
+    lead: 'Three industry projects and six academic projects, with who built what.',
     children: `
     <div class="exp-block">
       <div class="exp-head reveal">
@@ -155,9 +156,9 @@ ${Header()}
 ${Hero()}
 ${Overview()}
 ${About()}
+${Experience()}
 ${Team()}
 ${Capabilities()}
-${Experience()}
 ${Principles()}
 ${Cta()}
 </main>

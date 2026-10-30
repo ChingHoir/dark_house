@@ -15,6 +15,7 @@ export const site = {
 };
 
 export const hero = {
+  kicker: 'A student engineering team with real-world project experience',
   title: ['Young minds.', 'Bold builds.'],
   intro:
     'We are Dark Horse: five final-year Information and Communication Engineering students at the Institute of Technology of Cambodia. We build web, mobile and real-time systems, and we have already shipped features into live products during our internships at SAAT R&D Center.',
@@ -88,16 +89,19 @@ export const capabilities = [
     title: 'Web development',
     body: 'Storefronts, admin portals and back offices, with English and Khmer interfaces.',
     evidence: 'React · Next.js · Vue.js · Nuxt.js · TypeScript',
+    seenIn: ['SaatMenu v2', 'SAAT CMS', 'Farm-Link'],
   },
   {
     title: 'Mobile development',
     body: 'Android and iOS apps from one Flutter codebase, sharing the same backend as the web.',
     evidence: 'Flutter · Dart · Supabase',
+    seenIn: ['Gift Anusav'],
   },
   {
     title: 'Backend & APIs',
     body: 'REST APIs, business logic, role-based login and Cambodian payment integration (ABA, SaatMoney).',
     evidence: 'NestJS · PostgreSQL · JWT · Swagger',
+    seenIn: ['SaatMenu v2 payments', 'SAAT CMS APIs'],
   },
   {
     title: 'DevOps',
@@ -113,6 +117,7 @@ export const capabilities = [
     title: 'Connected systems',
     body: 'Live dashboards, maps, alerts and chat that update without refreshing the page.',
     evidence: 'WebSocket · Real-time monitoring',
+    seenIn: ['SmartBin', 'NearMe Social chat'],
   },
 ];
 
@@ -122,8 +127,9 @@ export const industry = {
   projects: [
     {
       name: 'SaatMenu v2',
+      problem: 'Restaurant guests needed to order and pay from their table.',
       summary:
-        'QR menu and ordering platform for restaurants with online payment. Guests scan a table QR code to order.',
+        'A QR menu and ordering platform: guests scan a table QR code, order and pay online with ABA or SaatMoney, and orders print in the kitchen.',
       tech: ['NestJS', 'Next.js', 'PostgreSQL'],
       contributions: [
         ['Vatanak', 'Customer storefront, menu APIs and ABA / SaatMoney payment integration'],
@@ -133,13 +139,15 @@ export const industry = {
     },
     {
       name: 'SmartBin Management System',
-      summary: 'Smart waste monitoring with live fill levels, a map, alerts and maintenance requests.',
+      problem: 'Bin owners needed to see fill levels and handle maintenance without checking each bin in person.',
+      summary: 'Smart waste monitoring with live fill levels on a map, alerts and maintenance requests, updated in real time.',
       tech: ['NestJS', 'React', 'PostgreSQL', 'WebSocket'],
       contributions: [['David', 'Owner web portal and its backend, including real-time updates, alerts and maintenance requests']],
     },
     {
       name: 'SAAT Water & SAAT Wash CMS',
-      summary: 'Bilingual content management for two public websites.',
+      problem: 'Two public websites needed their content managed in two languages.',
+      summary: 'One bilingual admin back office for website sections, media, menu integrations and activity logs.',
       tech: ['NestJS', 'Next.js', 'PostgreSQL'],
       contributions: [['Rasy', 'Admin back office and admin APIs for website sections, media, menu integrations and activity logs']],
     },

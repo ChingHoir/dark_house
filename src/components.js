@@ -51,6 +51,7 @@ export const Capability = (c) => `
 <li class="cap reveal">
   <h3 class="cap-title">${esc(c.title)}</h3>
   <p>${esc(c.body)}</p>
+  ${c.seenIn ? `<p class="cap-seen">Seen in ${c.seenIn.map(esc).join(', ')}</p>` : ''}
   <p class="cap-evidence">${esc(c.evidence)}</p>
 </li>`;
 
@@ -60,7 +61,10 @@ export const IndustryProject = (p) => `
     <h4 class="ind-name">${esc(p.name)}</h4>
     ${Tags(p.tech)}
   </div>
-  <p class="ind-summary">${esc(p.summary)}</p>
+  <dl class="ind-story">
+    <div><dt>Problem</dt><dd>${esc(p.problem)}</dd></div>
+    <div><dt>What we built</dt><dd>${esc(p.summary)}</dd></div>
+  </dl>
   <dl class="ind-credits">
     ${p.contributions.map(([who, what]) => `<div><dt>${esc(who)}</dt><dd>${esc(what)}</dd></div>`).join('')}
   </dl>
