@@ -1,29 +1,27 @@
-import * as d from './data.js';
 import {
-  esc, Section, Button, Stat, Lane, Capability, IndustryProject, AcademicProject, Principle,
+  setUI, esc, Section, Button, Stat, Lane, Capability, IndustryProject, AcademicProject, Principle,
 } from './components.js';
 
-const nav = [
-  ['about', 'About'],
-  ['experience', 'Projects'],
-  ['team', 'Team'],
-  ['capabilities', 'Capabilities'],
-  ['principles', 'Principles'],
-];
+// Set per language by renderPage().
+let d;
+let base = '';
+let altHref = '';
+const navIds = ['about', 'experience', 'team', 'capabilities', 'principles'];
 
 const Header = () => `
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="#top" aria-label="Dark Horse, back to top">
+    <a class="brand" href="#top" aria-label="${esc(d.ui.brandAria)}">
       <img src="${esc(d.site.logo)}" alt="" width="32" height="32" class="brand-logo">
       <span>Dark Horse</span>
     </a>
-    <nav aria-label="Sections">
+    <nav aria-label="${esc(d.ui.navAria)}">
       <ul class="nav-list" role="list">
-        ${nav.map(([id, label]) => `<li><a href="#${id}">${label}</a></li>`).join('')}
+        ${navIds.map((id) => `<li><a href="#${id}">${esc(d.ui.nav[id])}</a></li>`).join('')}
       </ul>
     </nav>
-    <a class="btn btn-small" href="#contact">Contact</a>
+    <a class="lang-switch" href="${esc(altHref)}" hreflang="${d.ui.switchLang}" lang="${d.ui.switchLang}" aria-label="${esc(d.ui.switchAria)}">${esc(d.ui.switchLabel)}</a>
+    <a class="btn btn-small" href="#contact">${esc(d.ui.contact)}</a>
   </div>
 </header>`;
 
@@ -36,8 +34,8 @@ const Hero = () => `
     </h1>
     <p class="hero-intro">${esc(d.hero.intro)}</p>
     <div class="hero-actions">
-      ${Button({ href: '#experience', label: 'Explore projects', external: false })}
-      ${Button({ href: '#team', label: 'Meet the team', variant: 'ghost', external: false })}
+      ${Button({ href: '#experience', label: d.ui.heroPrimary, external: false })}
+      ${Button({ href: '#team', label: d.ui.heroSecondary, variant: 'ghost', external: false })}
     </div>
   </div>
   <div class="track" aria-hidden="true">
@@ -53,7 +51,7 @@ const Hero = () => `
 </section>`;
 
 const Overview = () => `
-<section class="overview" aria-label="Team overview">
+<section class="overview" aria-label="${esc(d.ui.overviewAria)}">
   <div class="wrap">
     <dl class="stats reveal">${d.stats.map(Stat).join('')}</dl>
   </div>
@@ -62,7 +60,7 @@ const Overview = () => `
 const About = () =>
   Section({
     id: 'about',
-    title: 'About us',
+    title: d.ui.aboutTitle,
     className: 'section-split',
     children: `<div class="prose reveal">${d.about.paragraphs.map((p) => `<p>${esc(p)}</p>`).join('')}</div>`,
   });
@@ -70,36 +68,36 @@ const About = () =>
 const Team = () =>
   Section({
     id: 'team',
-    title: 'Five lanes, one race',
-    lead: 'Each member owns a part of the system. All five of us can work across the stack.',
+    title: d.ui.teamTitle,
+    lead: d.ui.teamLead,
     children: `<ol class="lanes" role="list">${d.members.map(Lane).join('')}</ol>`,
   });
 
 const Capabilities = () =>
   Section({
     id: 'capabilities',
-    title: 'What we can build',
-    lead: 'From the first screen design to the server it runs on.',
+    title: d.ui.capsTitle,
+    lead: d.ui.capsLead,
     children: `<ul class="caps" role="list">${d.capabilities.map(Capability).join('')}</ul>`,
   });
 
 const Experience = () =>
   Section({
     id: 'experience',
-    title: 'Projects',
-    lead: 'Three industry projects and six academic projects, with who built what.',
+    title: d.ui.projectsTitle,
+    lead: d.ui.projectsLead,
     children: `
     <div class="exp-block">
       <div class="exp-head reveal">
-        <h3>Industry experience at ${esc(d.industry.org)}</h3>
+        <h3>${esc(d.ui.industryTitle(d.industry.org))}</h3>
         <p>${esc(d.industry.note)}</p>
       </div>
       <div class="inds">${d.industry.projects.map(IndustryProject).join('')}</div>
     </div>
     <div class="exp-block">
       <div class="exp-head reveal">
-        <h3>Academic projects</h3>
-        <p>Team and individual projects at ITC.</p>
+        <h3>${esc(d.ui.academicTitle)}</h3>
+        <p>${esc(d.ui.academicNote)}</p>
       </div>
       <ul class="acads" role="list">${d.academic.map(AcademicProject).join('')}</ul>
     </div>`,
@@ -108,7 +106,7 @@ const Experience = () =>
 const Principles = () =>
   Section({
     id: 'principles',
-    title: 'How we work',
+    title: d.ui.principlesTitle,
     children: `<ul class="principles" role="list">${d.principles.map(Principle).join('')}</ul>`,
   });
 
@@ -127,30 +125,36 @@ const Cta = () => `
 const Footer = () => `
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <p>Dark Horse · Final Year Project Team, ITPM · GIC, Institute of Technology of Cambodia</p>
-    <p><a href="${esc(d.site.gicProfile)}" target="_blank" rel="noopener">View our profile on gicitc.com</a></p>
+    <p>${esc(d.ui.footer)}</p>
+    <p><a href="${esc(d.site.gicProfile)}" target="_blank" rel="noopener">${esc(d.ui.footerLink)}</a></p>
   </div>
 </footer>`;
 
-export const renderPage = () => `<!doctype html>
-<html lang="en">
+export const renderPage = (data, opts) => {
+  d = data;
+  ({ base, altHref } = opts);
+  setUI(d.ui);
+  return `<!doctype html>
+<html lang="${d.ui.lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dark Horse · Student engineering team at ITC</title>
+<title>${esc(d.ui.title)}</title>
 <meta name="description" content="${esc(d.site.description)}">
 <meta name="theme-color" content="#141417">
-<meta property="og:title" content="Dark Horse · Young minds. Bold builds.">
+<meta property="og:title" content="${esc(d.ui.ogTitle)}">
+<link rel="alternate" hreflang="en" href="${esc(opts.urls.en)}">
+<link rel="alternate" hreflang="km" href="${esc(opts.urls.km)}">
 <meta property="og:description" content="${esc(d.site.description)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${esc(d.site.url)}">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="${base}assets/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="${base}assets/styles.css">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main">${esc(d.ui.skip)}</a>
 ${Header()}
 <main id="main">
 ${Hero()}
@@ -163,7 +167,8 @@ ${Principles()}
 ${Cta()}
 </main>
 ${Footer()}
-<script src="assets/main.js" defer></script>
+<script src="${base}assets/main.js" defer></script>
 </body>
 </html>
 `;
+};

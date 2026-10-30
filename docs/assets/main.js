@@ -39,7 +39,8 @@
   // Team logo is served by gicitc.com; fall back to the local mark if it fails.
   const logo = document.querySelector('.brand-logo');
   if (logo) {
-    const swap = () => { logo.src = 'assets/favicon.svg'; };
+    const icon = document.querySelector('link[rel="icon"]');
+    const swap = () => { logo.src = icon ? icon.href : 'assets/favicon.svg'; };
     if (logo.complete && logo.naturalWidth === 0) swap();
     else logo.addEventListener('error', swap, { once: true });
   }

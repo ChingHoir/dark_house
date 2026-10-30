@@ -7,6 +7,14 @@
   font-stretch: 62% 125%;
   src: url('archivo-wdth.woff2') format('woff2-variations'), url('archivo-wdth.woff2') format('woff2');
 }
+@font-face {
+  font-family: 'Noto Sans Khmer';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('noto-sans-khmer.woff2') format('woff2-variations'), url('noto-sans-khmer.woff2') format('woff2');
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200C-200D, U+25CC;
+}
 
 :root {
   --bg: #141417;
@@ -19,7 +27,7 @@
   --accent-deep: #e2621c;
   --accent-soft: rgba(255, 138, 61, 0.12);
 
-  --font: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Archivo', 'Noto Sans Khmer', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --wide: 'wdth' 125;
   --semi: 'wdth' 112;
 
@@ -66,16 +74,17 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 }
 
 .skip {
-  position: absolute; left: 1rem; top: -3rem; z-index: 100;
+  position: absolute; left: 1rem; top: 1rem; z-index: 100; transform: translateY(-200%);
   background: var(--accent); color: #141417; padding: 0.6rem 1rem; border-radius: 6px;
   font-weight: 700; text-decoration: none;
 }
-.skip:focus { top: 1rem; }
+.skip:focus { transform: none; }
 
 .wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
 
 /* ---------- Buttons ---------- */
 .btn {
+  white-space: nowrap;
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.85rem 1.4rem; border-radius: 999px;
   font-weight: 650; font-size: var(--step--1); text-decoration: none; letter-spacing: 0.01em;
@@ -102,6 +111,7 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .brand {
   display: flex; align-items: center; gap: 0.65rem; text-decoration: none;
   font-weight: 800; font-variation-settings: var(--wide); letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 .brand-logo { border-radius: 8px; background: var(--surface); object-fit: cover; }
 .nav-list { display: flex; gap: 1.75rem; font-size: var(--step--1); color: var(--muted); }
@@ -109,6 +119,17 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .nav-list a:hover { color: var(--text); }
 .header-inner nav { margin-left: auto; }
 @media (max-width: 820px) { .header-inner nav { display: none; } .header-inner .btn-small { margin-left: auto; } }
+
+/* Language switch */
+.lang-switch {
+  white-space: nowrap;
+  font-size: var(--step--1); font-weight: 600; color: var(--muted); text-decoration: none;
+  padding: 0.45rem 0.8rem; border-radius: 999px; transition: color 0.2s, background-color 0.2s;
+}
+.lang-switch:hover { color: var(--accent); background: var(--accent-soft); }
+.header-inner .lang-switch { margin-left: auto; }
+.header-inner nav + .lang-switch { margin-left: 0; }
+@media (max-width: 820px) { .header-inner .btn-small { margin-left: 0; } .header-inner nav + .lang-switch { margin-left: auto; } }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -335,6 +356,22 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 2rem; }
 .footer-inner a { text-underline-offset: 3px; }
 .footer-inner a:hover { color: var(--accent); }
+
+/* ---------- Khmer typography ----------
+   Khmer has stacked vowels and subscripts: give it more line height,
+   no negative tracking and slightly smaller display sizes. */
+:lang(km) body, html:lang(km) { line-height: 1.85; }
+html:lang(km) .hero-title { font-size: clamp(2.4rem, 1.3rem + 5vw, 5.8rem); line-height: 1.35; letter-spacing: 0; }
+html:lang(km) .cta-title { font-size: clamp(2.2rem, 1.2rem + 4.5vw, 5rem); line-height: 1.35; letter-spacing: 0; max-width: 18ch; }
+html:lang(km) .section-title,
+html:lang(km) .ind-name,
+html:lang(km) .exp-head h3,
+html:lang(km) .principle h3,
+html:lang(km) .lane-name { line-height: 1.5; letter-spacing: 0; }
+html:lang(km) .hero-intro,
+html:lang(km) .prose,
+html:lang(km) .section-lead { line-height: 1.85; }
+html:lang(km) .hero-line + .hero-line { -webkit-text-stroke-width: 1.2px; }
 
 /* ---------- Scroll reveal (subtle, once) ---------- */
 .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
