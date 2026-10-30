@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="Dark Horse: Young minds. Bold builds.">
+  <defs>
+    <radialGradient id="glow" cx="85%" cy="0%" r="70%">
+      <stop offset="0" stop-color="#FF8A3D" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="run" gradientUnits="userSpaceOnUse" x1="64" y1="0" x2="960" y2="0">
+      <stop offset="0" stop-color="#E2621C" stop-opacity="0"/>
+      <stop offset="0.4" stop-color="#E2621C"/>
+      <stop offset="1" stop-color="#FF8A3D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="20" fill="#141417"/>
+  <rect width="1200" height="360" rx="20" fill="url(#glow)"/>
+  <g font-family="Archivo, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="64" y="78" fill="#9C9AA3" font-size="20">A student engineering team at the Institute of Technology of Cambodia</text>
+    <text x="64" y="160" fill="#EEEBE6" font-size="76" font-weight="800" letter-spacing="-2">Young minds.</text>
+    <text x="64" y="238" fill="none" stroke="#FF8A3D" stroke-width="2" font-size="76" font-weight="800" letter-spacing="-2">Bold builds.</text>
+  </g>
+  <g stroke-linecap="round">
+    <line x1="64" y1="284" x2="1136" y2="284" stroke="#2B2B32"/>
+    <line x1="64" y1="306" x2="1136" y2="306" stroke="#2B2B32"/>
+    <line x1="64" y1="328" x2="1136" y2="328" stroke="#2B2B32"/>
+    <line x1="64" y1="284" x2="880" y2="284" stroke="url(#run)" stroke-width="2"/>
+    <line x1="64" y1="306" x2="760" y2="306" stroke="url(#run)" stroke-width="2"/>
+    <line x1="64" y1="328" x2="960" y2="328" stroke="url(#run)" stroke-width="2"/>
+    <circle cx="880" cy="284" r="5" fill="#FF8A3D"/>
+    <circle cx="760" cy="306" r="5" fill="#FF8A3D"/>
+    <circle cx="960" cy="328" r="5" fill="#FF8A3D"/>
+  </g>
+</svg>
